@@ -23,9 +23,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private String username;
     private String password;
     @Enumerated(EnumType.STRING)
     private AppUserRole role;
@@ -39,10 +37,8 @@ public class User implements UserDetails {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(role.name());
         return Collections.singletonList(authority);
     }
-    public User(String firstName, String lastName, String email, String password, AppUserRole role, Wallet wallet) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public User(String username, String password, AppUserRole role, Wallet wallet) {
+        this.username = username;
         this.password = password;
         this.role = role;
         this.wallet = wallet;
@@ -54,7 +50,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return username;
     }
 
     @Override

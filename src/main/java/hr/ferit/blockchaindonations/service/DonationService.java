@@ -8,4 +8,5 @@ import java.util.List;
 public interface DonationService {
     List<DonationResponse> getDonations();
     DonationDetailsDto getDonation(Long donationId);
+    List<DonationResponse> getDonationsByUser(Long userId);
 }

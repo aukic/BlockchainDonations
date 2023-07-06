@@ -16,11 +16,12 @@ import java.util.List;
 @RestController
 @RequestMapping("api/donations")
 @RequiredArgsConstructor
+@CrossOrigin
 public class DonationController {
     private final BlockchainService blockchainService;
     private final DonationService donationService;
     @PostMapping
-    public ResponseEntity<BlockchainResponse> createBlockchain(@Valid @RequestBody CreateDonationRequest request) {
+    public ResponseEntity<BlockchainResponse> createDonation(@Valid @RequestBody CreateDonationRequest request) {
        return ResponseEntity.ok(blockchainService.createBlockchain(request));
     }
 
@@ -32,5 +33,10 @@ public class DonationController {
     @GetMapping("/{donationId}")
     public ResponseEntity<DonationDetailsDto> getDonationDetails(@PathVariable Long donationId) {
         return ResponseEntity.ok(donationService.getDonation(donationId));
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<DonationResponse>> getDonationsByUser(@PathVariable Long userId) {
+        return ResponseEntity.ok(donationService.getDonationsByUser(userId));
     }
 }

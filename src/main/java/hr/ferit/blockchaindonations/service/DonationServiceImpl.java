@@ -18,13 +18,19 @@ public class DonationServiceImpl implements DonationService {
     private final TransactionService transactionService;
     @Override
     public List<DonationResponse> getDonations() {
-        return donationRepository.findAll().stream().map(donation -> new DonationResponse(donation.getName(), donation.getDescription(), donation.getOwner().getWallet().getAddress())).toList();
+        return donationRepository.findAll().stream().map(donation -> new DonationResponse(donation.getId(), donation.getName(), donation.getDescription(), donation.getOwner().getWallet().getAddress())).toList();
     }
 
     @Override
     public DonationDetailsDto getDonation(Long donationId) {
         List<TransactionResponse> transactions = transactionService.getTransactions(donationId);
         Donation donation = donationRepository.getById(donationId);
-        return new DonationDetailsDto(donation.getName(), donation.getDescription(), donation.getOwner().getWallet().getAddress(), transactions);
+        return new DonationDetailsDto(donationId, donation.getName(), donation.getDescription(), donation.getOwner().getWallet().getAddress(), transactions);
     }
+
+    @Override
+    public List<DonationResponse> getDonationsByUser(Long userId) {
+        return donationRepository.findAllByOwnerId(userId).stream().map(donation -> new DonationResponse(donation.getId(), donation.getName(), donation.getDescription(), donation.getOwner().getWallet().getAddress())).toList();
+    }
+
 }

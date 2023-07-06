@@ -14,8 +14,8 @@ import java.util.List;
 public class DonationDetailsDto extends DonationResponse {
     List<TransactionResponse> transactions;
 
-    public DonationDetailsDto(String name, String description, String address, List<TransactionResponse> transactions) {
-        super(name, description, address);
+    public DonationDetailsDto(Long id, String name, String description, String address, List<TransactionResponse> transactions) {
+        super(id, name, description, address);
         this.transactions = transactions;
     }
 }
